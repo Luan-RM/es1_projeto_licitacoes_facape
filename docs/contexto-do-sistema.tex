@@ -1,0 +1,74 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{mdframed}
+
+\geometry{margin=2.5cm}
+
+\definecolor{facape_orange}{RGB}{230, 126, 34}
+\definecolor{facape_blue}{RGB}{44, 62, 80}
+
+\titleformat{\section}{\color{facape_blue}\Large\bfseries\scshape}{\thesection}{1em}{}[{\titlerule[1pt]}]
+\titleformat{\subsection}{\color{facape_orange}\large\bfseries}{\thesubsection}{1em}{}
+
+\begin{document}
+
+\begin{center}
+    {\huge \textbf{Contexto do Sistema: Gestão de Licitações FACAPE}} \\
+    \vspace{0.2cm}
+    {\large \textit{Documento base de Domínio}}
+\end{center}
+
+\begin{mdframed}[linecolor=gray, backgroundcolor=gray!10]
+    \small \textit{Este documento consolida o contexto do problema, atores e regras de negócio extraídos da análise do setor de licitações da FACAPE. Deve ser usado como referência conceitual para todos os grupos.}
+\end{mdframed}
+
+\section{Visão Geral}
+O sistema destina-se ao apoio da \textbf{fase interna} das compras públicas da FACAPE, regido pela Lei 14.133/2021. O escopo compreende desde a necessidade inicial até o envio do processo para a Prefeitura.
+
+\section{Problema Central}
+\begin{tabularx}{\textwidth}{@{}l X@{}}
+    \toprule
+    \textbf{Gargalo} & \textbf{Impacto} \\
+    \midrule
+    Coleta manual & Fracionamento indevido e DFD incompleto. \\
+    Cotação isolada & Erros de valores e licitações desertas. \\
+    Sem validação técnica & Impugnações de editais (custo médio R\$ 5.000). \\
+    Papelada física & Falta de rastreabilidade entre demanda e entrega. \\
+    \bottomrule
+\end{tabularx}
+
+\section{Atores do Sistema}
+\begin{itemize}[label=\textcolor{facape_blue}{\textbullet}]
+    \item \textbf{Secretaria/Colegiado:} Registra demandas de materiais.
+    \item \textbf{Almoxarifado:} Consolida demandas e gera o DFD.
+    \item \textbf{Chefe de Compras:} Coordena ETP, TR e cotação.
+    \item \textbf{Jurídico Interno:} Valida conformidade legal pré-envio.
+    \item \textbf{Sistemas Externos:} PNCP (Portal Nacional) e Banco de Preços.
+\end{itemize}
+
+\section{Regras de Negócio Críticas (RN)}
+\begin{description}
+    \item[RN-01:] Valor $\leq$ R\$ 80.000: Exclusivo para ME/EPP (Lei 123/2006).
+    \item[RN-02:] Valor $>$ R\$ 80.000: Cota de 25\% reservada para ME/EPP.
+    \item[RN-03:] Proibido fracionamento: Itens de mesma natureza devem ser consolidados.
+    \item[RN-08:] Adesão à Ata (Carona): Limite de 50\% do quantitativo original.
+    \item[RN-10:] Cotação: Mínimo de 3 fornecedores distintos obrigatórios.
+\end{description}
+
+\section{Siglas Importantes}
+\textbf{PCA:} Plano de Contratação Anual; \textbf{DFD:} Documento de Formalização da Demanda; \textbf{ETP:} Estudo Técnico Preliminar; \textbf{TR:} Termo de Referência; \textbf{SRP:} Sistema de Registro de Preços; \textbf{OF:} Ordem de Fornecimento.
+
+\vfill
+\begin{center}
+    \footnotesize FACAPE - Petrolina-PE | Disciplina de Engenharia de Software
+\end{center}
+
+\end{document}

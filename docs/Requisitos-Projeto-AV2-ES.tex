@@ -1,0 +1,129 @@
+\documentclass[a4paper,12pt]{article}
+
+% --- Pacotes Básicos ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{longtable}
+
+% --- Configurações de Aparência ---
+\definecolor{darkblue}{rgb}{0,0,0.5}
+\hypersetup{colorlinks=true, linkcolor=darkblue, urlcolor=darkblue}
+
+\title{\textbf{Requisitos do Projeto AV2}}
+\author{Engenharia de Software}
+\date{2026}
+
+\begin{document}
+
+\maketitle
+
+Este documento define a organização do trabalho da disciplina sobre o sistema de licitações. Ele complementa o \texttt{contexto-do-sistema.md}: não repete a descrição completa do domínio, mas traduz esse contexto em diretrizes de execução, integração entre grupos e critérios mínimos de entrega.
+
+\section*{Fontes de Verdade}
+\begin{itemize}
+    \item \textbf{contexto-do-sistema.md}: visão conceitual, escopo, atores e regras de negócio.
+    \item \textbf{Referências normativas}: materiais validados em sala com detalhes operacionais.
+\end{itemize}
+
+\section{Contexto e Objetivo}
+Este projeto AV2 foca em modelar e especificar um sistema único, com módulos interligados, para reduzir gargalos do processo interno e melhorar a rastreabilidade, qualidade de dados e tempo de tramitação do setor de licitações.
+
+O objetivo principal é entregar uma \textbf{solução integrada} para o ciclo interno da licitação, desde a demanda interna até a preparação do processo para tramitação externa.
+
+\section{Escopo do Projeto}
+\textbf{Tipo de escopo:} prático, modelagem e codificação orientada a processos.
+
+\subsection{Domínio Funcional Coberto}
+\begin{itemize}
+    \item Planejamento anual de contratações (PCA) e consolidação de demandas.
+    \item Elaboração de DFD, ETP, Termo de Referência e Mapa de Risco.
+    \item Tramitação interna e integração de fronteira com fluxo externo.
+    \item Acompanhamento de status externo (leitura de dados).
+    \item Controle de Ata/SRP, Ordem de Fornecimento e interface com empenho.
+    \item Trilha de auditoria, compliance e indicadores.
+\end{itemize}
+
+\subsection{Fora de Escopo}
+\begin{itemize}
+    \item Motor de lances do pregão eletrônico.
+    \item Julgamento externo de propostas e recursos em plataformas de terceiros.
+    \item Homologação/adjudicação executada diretamente no sistema externo.
+\end{itemize}
+
+\section{Organização das Equipes}
+\textbf{Quantidade:} 9 equipes desenvolvendo módulos de forma modular e paralela.
+
+\subsection{Abordagem de Desenvolvimento}
+Cada grupo desenvolve para seu módulo:
+\begin{itemize}
+    \item Casos de uso;
+    \item Diagrama UML (entidades/relacionamentos);
+    \item Diagramas de sequência e BPMN;
+    \item Backlog (histórias de usuário) e ADRs;
+    \item Testes unitários e de integração;
+    \item Auditoria (integração com G09).
+\end{itemize}
+
+\newpage
+\subsection{Tabela de Módulos}
+\begin{small}
+\begin{longtable}{lp{3.5cm}p{2.5cm}p{4.5cm}}
+\toprule
+\textbf{Gr.} & \textbf{Módulo} & \textbf{Entrada} & \textbf{Responsabilidade} \\ \midrule
+G1 & DFD & Formulários & Coleta e validação de demandas. \\ \midrule
+G2 & ETP & DFD & Cotação de preços e análise técnica. \\ \midrule
+G3 & Gestão Atas SRP & ETP & Pesquisar atas e calcular limites. \\ \midrule
+G4 & Termo de Ref. (TR) & ETP + G3 & Compilar regras da Lei 123/2006. \\ \midrule
+G5 & Mapa de Riscos & TR & Analisar riscos (preço/mercado). \\ \midrule
+G6 & Edital e Envio & TR + G5 & Formatar e enviar para Prefeitura. \\ \midrule
+G7 & Acomp. Externo & Edital Enviado & Consultar status e notificações. \\ \midrule
+G8 & Ordem de Forn. & Resultado & Gerar OF e acompanhar entrega. \\ \midrule
+G9 & Auditoria/BI & Eventos G1-G8 & Trilha imutável e indicadores. \\ \bottomrule
+\end{longtable}
+\end{small}
+
+\section{Requisitos Mínimos Obrigatórios}
+\begin{description}
+    \item[RQ-INT-01 (Integração):] Documentar contrato de entrada/saída de dados.
+    \item[RQ-INT-02 (Rastreabilidade):] Rastreamento ponta a ponta: Demanda $\rightarrow$ OF.
+    \item[RQ-INT-03 (Compliance):] Registro de fundamento normativo para cada decisão.
+    \item[RQ-INT-04 (Qualidade):] Plano de testes e integração com 2 vizinhos.
+    \item[RQ-INT-05 (Observabilidade):] Logs estruturados de transições de estado.
+\end{description}
+
+\section{Cronograma Sugerido}
+\begin{tabularx}{\textwidth}{l l X}
+\toprule
+\textbf{Marco} & \textbf{Prazo} & \textbf{Entrega} \\ \midrule
+Kickoff & Sem. 1 & Definição de grupos e interfaces iniciais. \\
+Checkpoint 1 & Sem. 2 & Escopo, backlog e modelo de domínio. \\
+Checkpoint 2 & Sem. 3 & Matriz E/S e Mock de sistema externo. \\
+Entrega Final & Sem. 6 & Monorepo completo e apresentação. \\ \bottomrule
+\end{tabularx}
+
+\section{Rubrica de Avaliação}
+\begin{itemize}
+    \item Aderência ao domínio e correções conceituais (20\%)
+    \item Qualidade técnica do módulo (20\%)
+    \item Integração entre equipes (20\%)
+    \item Rastreabilidade e Compliance (15\%)
+    \item Testes e evidências (15\%)
+    \item Comunicação e apresentação (10\%)
+\end{itemize}
+
+\bigskip
+\begin{center}
+    \fbox{\begin{minipage}{0.8\textwidth}
+    \textbf{Observação Importante:} Este AV2 não é um conjunto de trabalhos independentes. A nota considera fortemente a interoperabilidade do sistema integrado.
+    \end{minipage}}
+\end{center}
+
+\end{document}

@@ -1,0 +1,60 @@
+name: Verificar Escopo do Grupo
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-scope:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detectar pasta do grupo no título do PR
+        id: detect-group
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          echo "Título do PR: $PR_TITLE"
+          
+          # Extrai G01..G09 do título
+          GROUP=$(echo "$PR_TITLE" | grep -oP 'G\d{2}' | head -1 | tr '[:upper:]' '[:lower:]')
+          
+          if [ -z "$GROUP" ]; then
+            echo "::warning::Não foi possível detectar o número do grupo no título do PR."
+            echo "group_detected=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "Grupo detectado: $GROUP"
+          echo "group=$GROUP" >> $GITHUB_OUTPUT
+          echo "group_detected=true" >> $GITHUB_OUTPUT
+
+      - name: Verificar arquivos modificados fora da pasta do grupo
+        if: steps.detect-group.outputs.group_detected == 'true'
+        run: |
+          GROUP="${{ steps.detect-group.outputs.group }}"
+          
+          # Lista arquivos modificados no PR
+          CHANGED=$(git diff --name-only origin/main...HEAD)
+          echo "Arquivos modificados:"
+          echo "$CHANGED"
+          
+          # Verifica se algum arquivo está fora da pasta do grupo
+          VIOLATIONS=""
+          while IFS= read -r file; do
+            if [[ "$file" != grupos/*${GROUP}*/* ]] && [[ -n "$file" ]]; then
+              VIOLATIONS="$VIOLATIONS\n  ⚠️  $file"
+            fi
+          done <<< "$CHANGED"
+          
+          if [ -n "$VIOLATIONS" ]; then
+            echo "::error::Arquivos modificados FORA da pasta do grupo $GROUP:"
+            echo -e "$VIOLATIONS"
+            echo ""
+            echo "Cada grupo deve modificar APENAS sua pasta: grupos/*${GROUP}*/"
+            exit 1
+          fi
+          
+          echo "✅ Todos os arquivos estão dentro da pasta do grupo $GROUP"

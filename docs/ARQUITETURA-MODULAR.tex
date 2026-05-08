@@ -1,0 +1,122 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{tcolorbox}
+
+\geometry{margin=2cm}
+
+\definecolor{primary}{RGB}{26, 42, 108}
+\definecolor{secondary}{RGB}{178, 31, 31}
+
+\titleformat{\section}{\color{primary}\Large\bfseries}{\thesection}{1em}{}[{\titlerule[0.8pt]}]
+\titleformat{\subsection}{\color{secondary}\large\bfseries}{\thesubsection}{1em}{}
+
+\title{
+    \textbf{Arquitetura Modular: 9 Grupos, 9 Módulos}\\
+    \large Engenharia de Software 1
+}
+\author{Documentação Técnica}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Visão Geral}
+Cada grupo fica responsável por \textbf{UM MÓDULO} do sistema e desenvolve todos os artefatos de Engenharia de Software correspondentes: Casos de Uso, Diagramas de Classe, Sequência, BPMN, Backlog, ADRs, Testes e Auditoria.
+
+\section{Os 9 Módulos}
+
+\subsection{G01 --- Consolidação de Demandas (DFD)}
+\textbf{Objetivo:} Coleta e consolidação de demandas das secretarias.
+\begin{itemize}
+    \item \textbf{Entrada:} Demandas textuais/formulários.
+    \item \textbf{Saída:} DFD Consolidado (JSON/XML/CSV).
+    \item \textbf{Destaque:} Responsável pela higienização inicial dos dados.
+\end{itemize}
+
+\subsection{G02 --- Estudo Técnico Preliminar (ETP)}
+\textbf{Objetivo:} Análise técnica e cotação de preços.
+\begin{itemize}
+    \item \textbf{Entrada:} DFD (G01).
+    \item \textbf{Saída:} ETP com cotações e análise de viabilidade.
+\end{itemize}
+
+\subsection{G03 --- Pesquisa e Gestão de Atas SRP}
+\textbf{Objetivo:} Verificação de Atas de Registro de Preço vigentes para adesão.
+\begin{itemize}
+    \item \textbf{Entrada:} ETP (G02).
+    \item \textbf{Saída:} Relatório de recomendação (Adesão vs. Novo Processo).
+\end{itemize}
+
+\subsection{G04 --- Elaboração de Termo de Referência (TR)}
+\textbf{Objetivo:} Compilação técnica com foco na Lei 123/2006 (ME/EPP).
+\begin{itemize}
+    \item \textbf{Entrada:} ETP (G02) e Decisão de Ata (G03).
+    \item \textbf{Saída:} TR com divisão de cotas (25\%/75\% se > 80k).
+\end{itemize}
+
+\subsection{G05 --- Mapa de Riscos}
+\textbf{Objetivo:} Análise de riscos intrínsecos ao objeto da licitação.
+\begin{itemize}
+    \item \textbf{Entrada:} TR (G04).
+    \item \textbf{Saída:} Matriz de Probabilidade x Impacto.
+\end{itemize}
+
+\subsection{G06 --- Edital e Envio}
+\textbf{Objetivo:} Formatação e tramitação oficial para a Prefeitura.
+\begin{itemize}
+    \item \textbf{Entrada:} TR (G04) e Mapa (G05).
+    \item \textbf{Saída:} Edital oficial e registro de envio.
+\end{itemize}
+
+\subsection{G07 --- Acompanhamento Externo}
+\textbf{Objetivo:} Leitura de status do pregão na plataforma externa.
+\begin{itemize}
+    \item \textbf{Entrada:} Edital (G06).
+    \item \textbf{Saída:} Resultado (Empresa vencedora e valor final).
+\end{itemize}
+
+\subsection{G08 --- Ordem de Fornecimento (OF)}
+\textbf{Objetivo:} Geração e acompanhamento da entrega.
+\begin{itemize}
+    \item \textbf{Entrada:} Resultado (G07).
+    \item \textbf{Saída:} OF assinada digitalmente.
+\end{itemize}
+
+\subsection{G09 --- Auditoria e Compliance}
+\textbf{Objetivo:} Registro imutável de eventos e BI.
+\begin{itemize}
+    \item \textbf{Entrada:} Logs de todos os módulos (G01--G08).
+    \item \textbf{Saída:} Relatórios de conformidade e dashboards.
+\end{itemize}
+
+\section{Matriz de Integração}
+\begin{table}[h]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l X X l}
+\toprule
+\textbf{Módulo} & \textbf{Entrada} & \textbf{Saída} & \textbf{Depende} \\
+\midrule
+G01 & Demandas Brutas & DFD & --- \\
+G02 & DFD & ETP/Cotações & G01 \\
+G03 & ETP & Relatório Atas & G02 \\
+G04 & ETP + G03 & TR Formal & G02, G03 \\
+G05 & TR & Mapa Risco & G04 \\
+G06 & TR + Mapa & Edital & G04, G05 \\
+G07 & Edital & Resultado & G06 \\
+G08 & Resultado & OF & G07 \\
+G09 & Eventos G01-G08 & BI/Auditoria & Todos \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\end{document}

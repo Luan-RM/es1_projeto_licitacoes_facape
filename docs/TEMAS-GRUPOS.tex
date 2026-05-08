@@ -1,0 +1,131 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{listings}
+
+\geometry{margin=2.5cm}
+
+\definecolor{darkblue}{RGB}{44, 62, 80}
+\definecolor{myblue}{RGB}{41, 128, 185}
+\definecolor{mygreen}{RGB}{22, 160, 133}
+
+\titleformat{\section}{\color{darkblue}\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule[0.8pt]}]
+\titleformat{\subsection}{\color{myblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\title{Temas dos 9 Grupos --- Módulos do Sistema}
+\author{Engenharia de Software}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\noindent Cada grupo fica responsável por \textbf{UM MÓDULO DO SISTEMA} e desenvolve \textbf{todos os artefatos de Engenharia de Software} para esse módulo: casos de uso, diagramas, BPMN, backlog, ADRs, testes e auditoria.
+
+\noindent Os grupos trabalham \textbf{em paralelo}, com interfaces bem definidas.
+
+\section*{G01 --- Consolidação de Demandas (DFD)}
+\textbf{O que fazer:} Modelar o módulo de coleta e consolidação de demandas das secretarias em um Documento de Formalização da Demanda (DFD) único.
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Entradas:} Formulários/demandas das secretarias.
+    \item \textbf{Saídas:} DFD com lista consolidada de itens.
+    \item \textbf{Entregas Mínimas:} 4+ Casos de Uso, UML (Classes/Sequência), BPMN (Swimlanes), 5+ Histórias de Usuário, 2+ ADRs, Testes de Consolidação e Auditoria de logs.
+\end{itemize}
+
+\section*{G02 --- Estudo Técnico Preliminar (ETP)}
+\textbf{O que fazer:} Modelar o módulo que faz análise técnica do DFD: cotação de preços, especificação refinada e análise de mercado.
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Entradas:} DFD (G01).
+    \item \textbf{Saídas:} ETP com cotações, especificação e análise de mercado.
+    \item \textbf{Entregas Mínimas:} 4+ Casos de Uso, UML (Cotacao, Fornecedor), Diagrama de Sequência (Integração Banco de Preços), BPMN de análise técnica, Testes de outliers.
+\end{itemize}
+
+\section*{G03 --- Pesquisa e Gestão de Atas SRP}
+\textbf{O que fazer:} Modelar o módulo que verifica se há atas de SRP vigentes para adesão/carona em vez de abrir novo processo.
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Entradas:} ETP (G02).
+    \item \textbf{Saídas:} Relatório de atas com recomendação de ação.
+    \item \textbf{Entregas Mínimas:} Casos de Uso de competitividade, UML (Ata, Adesao), Cálculo de limites de adesão (50\%), Testes de vigência.
+\end{itemize}
+
+\section*{G04 --- Elaboração de Termo de Referência (TR)}
+\textbf{O que fazer:} Modelar o módulo que compila ETP com regras da Lei Complementar 123/2006.
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Entradas:} ETP (G02), Decisão de Ata (G03).
+    \item \textbf{Saídas:} TR formalizado e validado.
+    \item \textbf{Entregas Mínimas:} Cálculo de cotas (exclusiva vs aberta), UML (TermoReferencia, RegrasLei123), BPMN com validações jurídicas.
+\end{itemize}
+
+\section*{G05 --- Mapa de Riscos}
+\textbf{O que fazer:} Modelar o módulo que analisa riscos do PRODUTO: preço, especificação, mercado e manutenção.
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Entradas:} TR (G04).
+    \item \textbf{Saídas:} Mapa de Riscos (Probabilidade vs Impacto).
+    \item \textbf{Entregas Mínimas:} UML (Risco, Mitigacao), Matriz de Risco, ADR sobre metodologia de análise, Testes de cálculo de impacto.
+\end{itemize}
+
+\section*{G06 --- Preparação para Edital e Envio}
+\textbf{O que fazer:} Modelar o módulo que formata TR + Mapa de Risco em edital oficial e envia para a Prefeitura.
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Entradas:} TR (G04), Mapa de Risco (G05).
+    \item \textbf{Saídas:} Edital formatado e protocolo de envio.
+    \item \textbf{Entregas Mínimas:} Casos de Uso de tramitação, UML (Edital, TramiteExterno), BPMN de envio, Auditoria de envio e recebimento.
+\end{itemize}
+
+\section*{G07 --- Acompanhamento de Processo Externo}
+\textbf{O que fazer:} Modelar o módulo que acompanha o pregão eletrônico na plataforma da Prefeitura via API.
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Entradas:} Edital enviado (G06), API da Prefeitura.
+    \item \textbf{Saídas:} Status atualizado e resultado final do pregão.
+    \item \textbf{Entregas Mínimas:} Casos de Uso de monitoramento, UML (ProcessoExterno, Status), ADR sobre Webhooks/Polling, Testes de integração.
+\end{itemize}
+
+\section*{G08 --- Controle de Ordem de Fornecimento (OF)}
+\textbf{O que fazer:} Modelar o módulo que gera a OF após o pregão e acompanha a entrega.
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Entradas:} Resultado do pregão (G07).
+    \item \textbf{Saídas:} OF gerada e enviada ao fornecedor.
+    \item \textbf{Entregas Mínimas:} Gestão de assinaturas digitais, UML (OrdemFornecimento, Entrega), BPMN de ciclo de vida da OF, Testes de prazos.
+\end{itemize}
+
+\section*{G09 --- Auditoria, Compliance e Indicadores}
+\textbf{O que fazer:} Módulo centralizado que registra eventos de todos os módulos (G01--G08) para conformidade com a Lei 14.133/2021.
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Entradas:} Eventos de todos os módulos.
+    \item \textbf{Saídas:} Logs de auditoria, indicadores e alertas.
+    \item \textbf{Entregas Mínimas:} Registro de trilha imutável, UML (EventAuditoria, Indicador), ADR de Event Sourcing, Dashboards.
+\end{itemize}
+
+\section*{Integração entre Módulos}
+
+\begin{tcolorbox}[colback=blue!5, colframe=blue!75!black, title=Fluxo de Dados Sequencial]
+\centering
+\small
+G01 $\to$ G02 $\rightleftharpoons$ G03 $\rightleftharpoons$ G04 $\to$ G05 $\to$ G06 \\
+\vspace{2mm}
+$\downarrow$ \\
+\fbox{Prefeitura} \\
+$\downarrow$ \\
+G07 $\to$ G08 $\to$ Fornecedor $\to$ G09 \\
+\vspace{3mm}
+\hrule
+\vspace{2mm}
+\textit{* G09 (Auditoria/Compliance) recebe o dado final da entrega e monitora o ciclo.}
+\end{tcolorbox}
+
+\end{document}
