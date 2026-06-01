@@ -21,7 +21,7 @@ Análise técnica do DFD: cotação de preços (via Banco de Preços), especific
 | Artefato | Descrição | Status |
 |----------|-----------|--------|
 | Casos de uso (mínimo 4) | Consultar Banco de Preços, fazer cotação, validar especificação, gerar ETP | ✅ Concluído |
-| Diagrama UML de classes | `Cotacao`, `Fornecedor`, `Especificacao`, `AnaliseETP` | ⏳ Pendente |
+| Diagrama UML de classes | `Cotacao`, `Fornecedor`, `Especificacao`, `AnaliseETP` | ✅ Concluído |
 | Diagrama de sequência | Integração com Banco de Preços, análise de propostas | ⏳ Pendente |
 | BPMN | Fluxo de análise técnica com pontos de validação | ⏳ Pendente |
 | Backlog | Mínimo 5 histórias de usuário | ⏳ Pendente |
@@ -66,7 +66,7 @@ A principal dificuldade foi equilibrar o detalhamento dos fluxos sem torná-los 
 
 ## Limitações Identificadas
 
-- Diagramas UML, sequência e BPMN pendentes
+- Diagramas de sequência e BPMN pendentes
 - Backlog de histórias de usuário pendente
 - ADRs não documentadas
 - Contrato de integração com G01, G03 e G04 será definido após alinhamento
@@ -85,6 +85,8 @@ A principal dificuldade foi equilibrar o detalhamento dos fluxos sem torná-los 
   - `UC-04-elaborar-tr.md`
   - `UC-05-emitir-ordem-fornecimento.md`
   - `UC-06-gerenciar-ata-srp.md`
+  - `diagrama-classes-g02.drawio`
+  - `diagrama-classes-g02.png`
 
 
 ---
