@@ -36,14 +36,15 @@ O servidor de uma secretaria registra uma demanda por material ou serviço, info
 |-------|------|------|
 | 1 | Servidor | Acessa funcionalidade "Registrar Demanda" |
 | 2 | Sistema | Exibe formulário de cadastro de demanda |
-| 3 | Servidor | Preenche descrição do material/serviço |
-| 4 | Servidor | Informa quantidade e unidade de medida |
-| 5 | Servidor | Seleciona prazo desejado para entrega |
-| 6 | Servidor | Clica em "Salvar Demanda" |
-| 7 | Sistema | Valida os dados informados |
-| 8 | Sistema | Gera ID único para a demanda |
-| 9 | Sistema | Armazena demanda com status "Aguardando consolidação" |
-| 10 | Sistema | Exibe mensagem de confirmação |
+| 3 | Sistema | Identifica automaticamente a secretaria do servidor autenticado |
+| 4 | Servidor | Preenche descrição do material/serviço |
+| 5 | Servidor | Informa quantidade e unidade de medida |
+| 6 | Servidor | Seleciona prazo desejado para entrega |
+| 7 | Servidor | Clica em "Salvar Demanda" |
+| 8 | Sistema | Valida os dados informados |
+| 9 | Sistema | Gera ID único para a demanda |
+| 10 | Sistema | Armazena demanda com status "Aguardando consolidação" |
+| 11 | Sistema | Exibe mensagem de confirmação |
 
 ## Fluxos Alternativos
 
@@ -71,6 +72,7 @@ O servidor de uma secretaria registra uma demanda por material ou serviço, info
 - RN-01: Toda demanda deve ter descrição, quantidade e prazo
 - RN-02: Quantidade deve ser maior que zero
 - RN-03: Prazo não pode ser retroativo
+- RN-04: Toda demanda deve estar associada à secretaria do servidor solicitante
 
 ## Requisitos Não-Funcionais Relevantes
 
