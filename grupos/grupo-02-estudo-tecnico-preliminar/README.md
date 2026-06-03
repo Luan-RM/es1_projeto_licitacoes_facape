@@ -53,7 +53,7 @@ Análise técnica do DFD: cotação de preços (via Banco de Preços), especific
 
 ## Decisões Tomadas
 
-O Grupo 02 optou por estruturar os casos de uso seguindo o template padronizado, com identificação, fluxo principal, fluxos alternativos, exceções, regras de negócio e requisitos não-funcionais.
+Optamos por estruturar os casos de uso seguindo o template padronizado, com identificação, fluxo principal, fluxos alternativos, exceções, regras de negócio e requisitos não-funcionais.
 
 Decidimos focar primeiro nos 6 casos de uso obrigatórios para garantir cobertura completa do módulo ETP:
 - UC-01 e UC-02: entrada do sistema (registro e consolidação de demandas)
@@ -66,28 +66,43 @@ A principal dificuldade foi equilibrar o detalhamento dos fluxos sem torná-los 
 
 ## Limitações Identificadas
 
-- Diagramas de sequência e BPMN pendentes
-- Backlog de histórias de usuário pendente
-- ADRs não documentadas
-- Contrato de integração com G01, G03 e G04 será definido após alinhamento
-- Testes de integração pendentes
-- Formatação dos .md pode ser refinada posteriormente
+- Contrato de integração com G01 pendente.
 
 ---
 
 ## 📁 Estrutura da Pasta
 
-- `grupo-02-estudo-tecnico-preliminar/`
-  - `README.md`
-  - `UC-01-registrar-demanda.md`
-  - `UC-02-consolidar-dfd.md`
-  - `UC-03-realizar-cotacao.md`
-  - `UC-04-elaborar-tr.md`
-  - `UC-05-emitir-ordem-fornecimento.md`
-  - `UC-06-gerenciar-ata-srp.md`
-  - `diagrama-classes-g02.drawio`
-  - `diagrama-classes-g02.png`
-
+```text
+grupo-02-estudo-tecnico-preliminar/
+│
+├── README.md
+│
+├── casos-de-uso/
+│   ├── UC-01-registrar-demanda.md
+│   ├── UC-02-consolidar-dfd.md
+│   ├── UC-03-realizar-cotacao.md
+│   ├── UC-04-elaborar-tr.md
+│   ├── UC-05-emitir-ordem-fornecimento.md
+│   └── UC-06-gerenciar-ata-srp.md
+│
+├── diagrama-de-classes/
+│   ├── diagrama-classes.drawio
+│   └── diagrama-classes.png
+│
+├── diagrama-de-sequencia/
+│   ├── diagrama-sequencia.drawio
+│   └── diagrama-sequencia.png
+│
+├── bpmn/
+│   ├── bpmn.drawio
+│   └── bpmn.png
+│
+├── adrs-e-backlog/
+│   ├── adrs.md
+│   └── backlog.md
+│
+└── testes-e-auditoria.md
+```
 
 ---
 
@@ -97,4 +112,4 @@ A principal dificuldade foi equilibrar o detalhamento dos fluxos sem torná-los 
 
 ## Link do PR
 
-...
+https://github.com/mateusamorim96/es1_projeto_licitacoes_facape/pull/1
